@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+
+    Route::get('/', function () {
+        //var_dump(Voyager::view('welcome'));die();
+        Voyager::view('voyager::welcome');
+        //Voyager::view('welcome');
+        //return view('welcome');
+    });
 });
