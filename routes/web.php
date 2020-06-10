@@ -14,17 +14,15 @@ use TCG\Voyager\Facades\Voyager;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-
-    Route::get('/', function () {
-        //var_dump(Voyager::view('welcome'));die();
-        Voyager::view('voyager::welcome');
-        //Voyager::view('welcome');
-        //return view('welcome');
-    });
 });
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/account', 'AccountController@edit')->name('account_edit');
+Route::post('/account', 'AccountController@update')->name('account_update');
+Route::post('/account/reset', 'AccountController@reset')->name('account_reset');
+Route::get('/profile', 'ProfileController@edit')->name('profile_edit');
+Route::post('/profile', 'ProfileController@update')->name('profile_update');
